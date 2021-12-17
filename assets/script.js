@@ -51,6 +51,10 @@ var questions = [
     }
 ]
 
-
+function swapThem() {
+    answerBox.style.display = 'block';
+    infoText.style.display = 'none';
+    startButton.style.display = 'none';
+}
 
 console.log(highScore);
