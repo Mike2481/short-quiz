@@ -11,10 +11,10 @@
 <body>
     <header class="time"><!-- This is where I will have View high scores and timer-->
         <div>
-            <h6 id="high">View high score</h6><span id="bestScore">10</span>
+            <h6 id="high">View high score</h6><div id="bestScore">0</div>
         </div>
         <div>
-            <h6 id="time">Time</h6><span id="timeRemaining">00:50</span>
+            <h6 id="time">Time</h6><span id="timeRemaining">50</span>
         </div>
 
     </header>
@@ -27,7 +27,7 @@
         </div>
         <p class="info" id="info">Try to answer the following coding related questions in 50 seconds or less.  Be careful though!  Incorrect guesses will result in a time-loss penalty of 10 seconds.  Time remaining at the end of the quiz will be your score.</p> <!-- Rules for start page and post game instruction -->
         <div class="button-container">
-            <button type="button" class="button1" id="start" onclick="swapThem()">Start Quiz</button>
+            <button type="button" class="button1" id="start" onclick="quizStart()">Start Quiz</button>
         </div>
         <div id="choices"><!-- Div for all the choice buttons -->
             <button type="button" class="button2" id="A" onclick="checkAnswer('A')">A-sample text</button>
@@ -37,6 +37,16 @@
         </div>
         <div class="bottom">
             <h3 class="result" id="result">Correct or Wrong</h3>
+        </div>
+        <div>
+            <form id="nameForm">
+                <label for="initials">Enter Initials:</label>
+                <input type="text" id="initial" name="initial" maxlength="3"> <!-- need to limit to 3 spaces-->
+            </form>
+        </div>
+        <div>
+            <button type="button" class="submitButton" id="submitScore" onclick="submitScore(event)">Submit</button>
+            <button type="button" class="submitButton" id="restartQuiz" onclick="restartQuiz(event)">Restart Quiz</button>
         </div>
 
     </main>

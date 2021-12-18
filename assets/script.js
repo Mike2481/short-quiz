@@ -12,147 +12,169 @@ var buttonC = document.getElementById("C");
 var buttonD = document.getElementById("D");
 
 var result = document.getElementById("result");
+var retrievedObject;
 
-
+var nameEnter = document.getElementById("initial").value;
+var nameDiv = document.getElementById("nameForm");
+var sec = 49;
+var timerRun;
+var submit = document.getElementById("submitScore");
+var restart = document.getElementById("restartQuiz");
+var mostRecentScore = localStorage.getItem("mostRecentScore");
 
 
 var questions = [
     {
-        question: "insert question 1 here",
-        answerA: "give an answer choice",
-        answerB: "give an answer choice",
-        answerC: "give an answer choice",
-        answerD: "correct answer",
+        question: "Arrays in JavaScript can be used to store:",
+        answerA: "Numbers and Strings",
+        answerB: "Other Arrays",
+        answerC: "Booleans",
+        answerD: "All of the above",
         correct: "D"
     },
     {
-        question: "insert question 2 here",
-        answerA: "give an answer choice",
-        answerB: "give an answer choice",
-        answerC: "correct answer",
-        answerD: "give an answer choice",
+        question: "Commonly used data types Do Not include:",
+        answerA: "Strings",
+        answerB: "Booleans",
+        answerC: "Alerts",
+        answerD: "Numbers",
         correct: "C"
     },
     {
-        question: "insert question 3 here",
-        answerA: "correct answer",
-        answerB: "give an answer choice",
-        answerC: "give an answer choice",
-        answerD: "give an answer choice",
+        question: "The condition of an If/Else statement is enclosed with:",
+        answerA: "Parenthesis",
+        answerB: "Curly Brace",
+        answerC: "Square Brackets",
+        answerD: "Quotes",
         correct: "A"
     },
     {
-        question: "insert question 4 here",
-        answerA: "give an answer choice",
-        answerB: "correct answer",
-        answerC: "give an answer choice",
-        answerD: "give an answer choice",
+        question: "String values must be enclosed within ____ when being assigned to variables:",
+        answerA: "Curly Brackets",
+        answerB: "Quotes",
+        answerC: "Parenthesis",
+        answerD: "Commas",
         correct: "B"
     }
 ];
 
 let questionIndex = questions.length - 1;
-let runningQuestionIndex = 0;
+let currentQuestionIndex = 0;
 
-function renderQuestion() {
-    let q = questions[runningQuestionIndex];
-    questionText.innerHTML = "<p>" + q.question + "</p>";
-    buttonA.innerHTML = q.answerA;
-    buttonB.innerHTML = q.answerB;
-    buttonC.innerHTML = q.answerC;
-    buttonD.innerHTML = q.answerD;
+
+function createQuestion() {
+    let quest = questions[currentQuestionIndex];
+    questionText.innerHTML = "<p>" + quest.question + "</p>";
+    buttonA.innerHTML = quest.answerA;
+    buttonB.innerHTML = quest.answerB;
+    buttonC.innerHTML = quest.answerC;
+    buttonD.innerHTML = quest.answerD;
 
 }
 
-//let timer = 85;
 
 
-let score = 0;
 
 function checkAnswer(answer) {
-    if(answer == questions[runningQuestionIndex].correct) {
+    if(answer == questions[currentQuestionIndex].correct) {
         answerIsCorrect();
     }else{
         answerIsWrong();
     }
-    if(runningQuestionIndex < questionIndex) {
-        runningQuestionIndex++;
-        setTimeout(renderQuestion(), 3000);
+    if(currentQuestionIndex < questionIndex) {
+        currentQuestionIndex++;
+        
+        setTimeout(createQuestion(), 1000);
+
     }else {
-        scoreRender();
+        setTimeout(scoreRender, 1000);
     }
 }
 
 function answerIsCorrect() {
 
     result.style.display = 'block';
-
     result.innerText = "Correct";
+    setTimeout(function() {
+        result.style.display = 'none';
+    }, 1000);
 }
 function answerIsWrong() {
+    sec -= 10;
     result.style.display = 'block';
     result.innerText = "Wrong";
-    // need 10 second off time
+    setTimeout(function() {
+        result.style.display = 'none';
+    }, 1000);
+
+
 }
 
 function time() {
-    var sec = 49;
-    var timerRun = setInterval(function(){
-        timer.innerHTML = '00: '+sec;
-        sec--;
+    sec--;
+    timer.innerHTML = sec;
         if (sec < 0) {
-            clearInterval(timerRun);
+            scoreRender();
         }
-    }, 1000);
-    
+}
 
+
+function scoreRender() {
+    answerBox.style.display = 'none';
+    questionText.innerHTML = "Your Score Is " + sec;
+    nameForm.style.display = 'block';
+    submit.style.display = 'block';
+    restart.style.display = 'block';
+    result.style.display = 'none';
+    clearInterval(timerRun);
+
+} 
+
+
+
+function submitScore (e) {
+    var scoreObj = {
+        initials: nameEnter,
+        score: sec
+    };
+    
+    localStorage.setItem('scoreObj', JSON.stringify(scoreObj));
+    
+    retrievedObject = localStorage.getItem('scoreObj');
+    
+    console.log('retrievedObject: ', JSON.parse(retrievedObject));
+    
+    highScore.innerHTML = retrievedObject;
 
 }
 
-/*function scoreRender() {
-    // need to convert time left to high score
-} */
-
-
-function swapThem() {
+function restartQuiz() {
     answerBox.style.display = 'block';
     infoText.style.display = 'none';
     startButton.style.display = 'none';
-    renderQuestion();
-    time();
-
-};
-
-
-
-
-    /*this populates the first 
-    question, but I need to cycle through all of them with a pause, function rightWrong,
-    time reduction (if applicable), and end quiz after last question. */
-   /* questions.answers.forEach(answer => {
-        var button = document.createElement('button')
-        button.innerText = answer.text
-        button.classList.add("button2")
-        if (answer.correct) {
-            button.dataset.correct = answer.correct
-        }
-        button.addEventListener("click", selectAnswer)
-        answerBox.appendChild(button)
-    })
-
+    restart.style.display = 'none';
+    submit.style.display = 'none';
+    nameForm.style.display = 'none';
+    currentQuestionIndex = [0];
+    sec = 49;
+    createQuestion();
+    timerRun = setInterval(time, 1000);
 }
 
-function rightWrong() {
-    var selectedChoice;
-    if (questions[0].correctAnswer) {
-        result.innerHTML = "Correct";
-        result.style.display = 'block';
-    } else {
-        result.innerHTML = "Wrong";
-        result.style.display = 'block';
-    }
+
+function quizStart() {
+    answerBox.style.display = 'block';
+    infoText.style.display = 'none';
+    startButton.style.display = 'none';
+    restart.style.display = 'none';
+    createQuestion();
+    timerRun = setInterval(time, 1000);
 };
-*/
+
+
+
+
+
 
 
 

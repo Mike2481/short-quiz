@@ -54,6 +54,18 @@ body {
 
 }
 
+.submitButton {
+    display: flex;
+    position: relative;
+    background-color: var(--primary-color);
+    border-radius: .5rem;
+    box-shadow: 0 0 5px var(--primary-color);
+    justify-content: space-around;
+    cursor: pointer;
+    margin: 1rem;
+    padding: 10px;
+}
+
 .button1 { 
     display: flex;
     position: relative;
@@ -113,6 +125,18 @@ body {
 
 #high {
     color: var(--secondary-color);
+}
+
+#nameForm {
+    display: none;
+}
+
+#submitScore {
+    display: none;
+}
+
+#restartQuiz {
+    display: none;
 }
 
 
