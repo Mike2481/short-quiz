@@ -10,8 +10,12 @@
 
 <body>
     <header class="time"><!-- This is where I will have View high scores and timer-->
-        <h6 id="high">View high score</h6>
-        <h6 id="time">Time</h6>
+        <div>
+            <h6 id="high">View high score</h6><span id="bestScore">10</span>
+        </div>
+        <div>
+            <h6 id="time">Time</h6><span id="timeRemaining">00:50</span>
+        </div>
 
     </header>
 
@@ -25,11 +29,11 @@
         <div class="button-container">
             <button type="button" class="button1" id="start" onclick="swapThem()">Start Quiz</button>
         </div>
-        <div id="choices" onclick="rightWrong()"><!-- Div for all the choice buttons -->
-            <button type="button" class="button2" id="a">A-sample text</button>
-            <button type="button" class="button2" id="b">B-sample text</button>
-            <button type="button" class="button2" id="c">C-sample text</button>
-            <button type="button" class="button2" id="d">D-sample text</button>
+        <div id="choices"><!-- Div for all the choice buttons -->
+            <button type="button" class="button2" id="A" onclick="checkAnswer('A')">A-sample text</button>
+            <button type="button" class="button2" id="B" onclick="checkAnswer('B')">B-sample text</button>
+            <button type="button" class="button2" id="C" onclick="checkAnswer('C')">C-sample text</button>
+            <button type="button" class="button2" id="D" onclick="checkAnswer('D')">D-sample text</button>
         </div>
         <div class="bottom">
             <h3 class="result" id="result">Correct or Wrong</h3>
