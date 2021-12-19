@@ -12,7 +12,7 @@ var buttonC = document.getElementById("C");
 var buttonD = document.getElementById("D");
 
 var result = document.getElementById("result");
-var retrievedObject;
+var getScore;
 
 var nameEnter = document.getElementById("initial").value;
 var nameDiv = document.getElementById("nameForm");
@@ -134,17 +134,20 @@ function scoreRender() {
 
 function submitScore (e) {
     var scoreObj = {
-        initials: nameEnter,
+        initials: document.getElementById("initial").value,
         score: sec
     };
+    console.log(scoreObj);
     
     localStorage.setItem('scoreObj', JSON.stringify(scoreObj));
     
-    retrievedObject = localStorage.getItem('scoreObj');
+    getScore = localStorage.getItem('scoreObj');
     
-    console.log('retrievedObject: ', JSON.parse(retrievedObject));
+    console.log('getScore: ', JSON.parse(getScore));
     
-    highScore.innerHTML = retrievedObject;
+    highScore.innerHTML = getScore;
+    //     highScore.appendChild(getScore); did not work
+
 
 }
 
@@ -170,7 +173,6 @@ function quizStart() {
     createQuestion();
     timerRun = setInterval(time, 1000);
 };
-
 
 
 
