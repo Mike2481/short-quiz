@@ -84,7 +84,7 @@ function checkAnswer(answer) {
     if(currentQuestionIndex < questionIndex) {
         currentQuestionIndex++;
         
-        setTimeout(createQuestion(), 1000);
+        setTimeout(createQuestion, 1000);
 
     }else {
         setTimeout(scoreRender, 1000);
