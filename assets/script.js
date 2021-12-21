@@ -1,3 +1,5 @@
+
+// global variables tied to HTML elements used in functions below
 var highScore = document.getElementById("bestScore");
 var timer = document.getElementById("timeRemaining");
 
@@ -12,7 +14,7 @@ var buttonC = document.getElementById("C");
 var buttonD = document.getElementById("D");
 
 var result = document.getElementById("result");
-var getScore;
+var scoreObject;
 
 var nameEnter = document.getElementById("initial").value;
 var nameDiv = document.getElementById("nameForm");
@@ -20,9 +22,11 @@ var sec = 49;
 var timerRun;
 var submit = document.getElementById("submitScore");
 var restart = document.getElementById("restartQuiz");
+
+
 var mostRecentScore = localStorage.getItem("mostRecentScore");
 
-
+// Questions array
 var questions = [
     {
         question: "Arrays in JavaScript can be used to store:",
@@ -57,11 +61,12 @@ var questions = [
         correct: "B"
     }
 ];
-
+// question index equal to the length of the array minus one since array starts at zero
 let questionIndex = questions.length - 1;
+// begin at first object and use variable currentQuestionIndex as reference
 let currentQuestionIndex = 0;
 
-
+// this will pull the question text and answer choices from the array based off current index
 function createQuestion() {
     let quest = questions[currentQuestionIndex];
     questionText.innerHTML = "<p>" + quest.question + "</p>";
@@ -73,7 +78,10 @@ function createQuestion() {
 }
 
 
-
+/* checks selected answer against correct property from the current question based off index
+and, if equal, runs the function for answer is correct.  If it does not match, the function for
+wrong will run.  This will also check if there are any more questions and will either run the 
+next question or run the score render function. */
 
 function checkAnswer(answer) {
     if(answer == questions[currentQuestionIndex].correct) {
@@ -83,14 +91,15 @@ function checkAnswer(answer) {
     }
     if(currentQuestionIndex < questionIndex) {
         currentQuestionIndex++;
-        
+        // delays the progression to the next question by a second
         setTimeout(createQuestion, 1000);
 
     }else {
+        // delays the progression to the score render by a second
         setTimeout(scoreRender, 1000);
     }
 }
-
+// displays the "Correct" message and leaves it there for a full second
 function answerIsCorrect() {
 
     result.style.display = 'block';
@@ -99,6 +108,7 @@ function answerIsCorrect() {
         result.style.display = 'none';
     }, 1000);
 }
+// displays the "wrong" message and leaves it there for a full second.  Also subtracts 10 sec from time
 function answerIsWrong() {
     sec -= 10;
     result.style.display = 'block';
@@ -109,16 +119,17 @@ function answerIsWrong() {
 
 
 }
-
+// timer is displayed in HTML and, if it reaches zero, will run the score render function
 function time() {
     sec--;
     timer.innerHTML = sec;
-        if (sec < 0) {
+        if (sec <= 0) {
             scoreRender();
         }
 }
 
-
+/* at end of the game, answers will disappear, the time will pause, and a score will be generated
+A form will populate for the user to enter their initials */
 function scoreRender() {
     answerBox.style.display = 'none';
     questionText.innerHTML = "Your Score Is " + sec;
@@ -130,26 +141,35 @@ function scoreRender() {
 
 } 
 
-
-
-function submitScore (e) {
-    var scoreObj = {
+let scoreArray = [];
+// once the submit button is clicked
+const addScore = (e)=>{
+    e.preventDefault();
+    var scoreObject = {
         initials: document.getElementById("initial").value,
         score: sec
     };
-    console.log(scoreObj);
+
+    scoreArray.push(scoreObject);
     
-    localStorage.setItem('scoreObj', JSON.stringify(scoreObj));
+
+    localStorage.setItem('storedScore', JSON.stringify(scoreArray));
+
     
-    getScore = localStorage.getItem('scoreObj');
-    
-    console.log('getScore: ', JSON.parse(getScore));
-    
-    highScore.innerHTML = getScore;
-    //     highScore.appendChild(getScore); did not work
+    if (sec > localStorage.getItem('storedScore').score) {
+        localStorage.setItem('highScore', JSON.stringify(scoreArray));
+    } console.log(localStorage.getItem('storedScore').score); // undefined
+
+   // var highScore = JSON.parse(localStorage.getItem('highScore'));
 
 
-}
+    highScore.innerHTML = JSON.parse(localStorage.getItem('highScore'));
+
+    console.log(highScore.innerHTML); // undefined
+    //     highScore.appendChild(scoreArray); did not work
+
+
+};
 
 function restartQuiz() {
     answerBox.style.display = 'block';
@@ -176,7 +196,8 @@ function quizStart() {
 
 
 
-
+document.getElementById("submitScore").addEventListener("click", addScore);
+document.getElementById("restartQuiz").addEventListener("click", restartQuiz);
 
 
 
