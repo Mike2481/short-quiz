@@ -15,8 +15,8 @@ var buttonD = document.getElementById("D");
 
 var result = document.getElementById("result");
 var scoreObject;
+var storedSec;
 
-var nameEnter = document.getElementById("initial").value;
 var nameDiv = document.getElementById("nameForm");
 var sec = 49;
 var timerRun;
@@ -76,7 +76,6 @@ function createQuestion() {
     buttonD.innerHTML = quest.answerD;
 
 }
-
 
 /* checks selected answer against correct property from the current question based off index
 and, if equal, runs the function for answer is correct.  If it does not match, the function for
@@ -140,7 +139,6 @@ function scoreRender() {
     clearInterval(timerRun);
 
 } 
-
 let scoreArray = [];
 // once the submit button is clicked
 const addScore = (e)=>{
@@ -149,23 +147,24 @@ const addScore = (e)=>{
         initials: document.getElementById("initial").value,
         score: sec
     };
-
     scoreArray.push(scoreObject);
     
-
     localStorage.setItem('storedScore', JSON.stringify(scoreArray));
+    var storedSec =JSON.parse(localStorage.getItem('storedScore'.score));
 
+console.log(localStorage.getItem('storedScore'.score));
     
-    if (sec > localStorage.getItem('storedScore').score) {
+    if (sec > storedSec) {
         localStorage.setItem('highScore', JSON.stringify(scoreArray));
-    } console.log(localStorage.getItem('storedScore').score); // undefined
+    } else {
+        questionText.innerHTML = "Your score is not the high score"
 
+    } // undefined
    // var highScore = JSON.parse(localStorage.getItem('highScore'));
 
 
-    highScore.innerHTML = JSON.parse(localStorage.getItem('highScore'));
+    highScore.innerHTML = localStorage.getItem('highScore'.score);
 
-    console.log(highScore.innerHTML); // undefined
     //     highScore.appendChild(scoreArray); did not work
 
 
