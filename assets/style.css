@@ -6,7 +6,7 @@
     text-decoration: none;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
-
+/* set up var colors to use throughout the sheet */
 :root {
     --primary-color: #B633FF;
     --secondary-color: #E033FF;
@@ -20,7 +20,7 @@ body {
     background-color: lightgray;
     position: relative;
 }
-
+/* container set up to adjust to most screen sizes */
 .container {
     border: 1px solid black;
     background: white;
@@ -35,7 +35,7 @@ body {
 }
 .mainMessage {
     text-align: center;
-    margin: 3rem 3rem 1rem 3rem;
+    margin: 3rem 3rem 1rem 3rem; /* mainMessage is used on all pages as the primary text field */
     font-size: 50px;
 }
 
@@ -44,7 +44,7 @@ body {
     margin: 0 3rem 1rem 3rem;
     width: 45rem;
 }
-
+/* multiple buttons were used and styled differently.  Unique class attributes kept them sorted */
 .button-container {
     position: relative;
     display: flex;
@@ -94,6 +94,7 @@ body {
 
 
 }
+/* styling for the answer choices */
 #choices {
     position: relative;
     display: flex;
@@ -103,7 +104,7 @@ body {
     display: none;
 
 }
-
+/* result message set up as display none until generated in js file */
 .result {
     display: flex;
     position: relative;

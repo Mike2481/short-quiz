@@ -17,7 +17,7 @@ var scoreObject;
 var storedSec;
 
 var nameDiv = document.getElementById("nameForm");
-var sec = 49;
+var sec = 49; // this was set at 49 instead of 50 because there was a delay in the timer starting
 var timerRun;
 var submit = document.getElementById("submitScore");
 var restart = document.getElementById("restartQuiz");
@@ -25,7 +25,7 @@ var restart = document.getElementById("restartQuiz");
 
 const mostRecentScore = localStorage.getItem("mostRecentScore");
 
-// Questions array
+// Questions array has the question, all answers, and the correct answer indicated
 var questions = [
   {
     question: "Arrays in JavaScript can be used to store:",
@@ -190,6 +190,8 @@ addScore = e => {
   //     highScore.appendChild(scoreArray); did not work
 //};
 
+// this function wraps back through the questions to allow the user as many attempts as they want
+
 function restartQuiz() {
   answerBox.style.display = "block";
   infoText.style.display = "none";
@@ -202,7 +204,7 @@ function restartQuiz() {
   createQuestion();
   timerRun = setInterval(time, 1000);
 }
-
+// kicks off the quiz and timer
 function quizStart() {
   answerBox.style.display = "block";
   infoText.style.display = "none";
@@ -211,6 +213,6 @@ function quizStart() {
   createQuestion();
   timerRun = setInterval(time, 1000);
 }
-
+// event listeners for the submit button and the restart quiz button at the end of the quiz 
 document.getElementById("submitScore").addEventListener("click", addScore);
 document.getElementById("restartQuiz").addEventListener("click", restartQuiz);
