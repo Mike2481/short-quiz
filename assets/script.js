@@ -52,8 +52,7 @@ var questions = [
     correct: "A",
   },
   {
-    question:
-      "String values must be enclosed within ____ when being assigned to variables:",
+    question: "String values must be enclosed within ____ when being assigned to variables:",
     answerA: "Curly Brackets",
     answerB: "Quotes",
     answerC: "Parenthesis",
