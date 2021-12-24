@@ -65,6 +65,11 @@ body {
     margin: 1rem;
     padding: 10px;
 }
+.submitButton:hover {
+    background-color: var(--secondary-color);
+    color: white;
+
+}
 
 .button1 { 
     display: flex;
@@ -76,6 +81,12 @@ body {
     cursor: pointer;
 
 
+
+}
+
+.button1:hover {
+    background-color: var(--secondary-color);
+    color: white;
 
 }
 .button2 {
@@ -93,6 +104,10 @@ body {
     cursor: pointer;
 
 
+}
+.button2:hover {
+    background-color: var(--secondary-color);
+    color: white;
 }
 /* styling for the answer choices */
 #choices {
