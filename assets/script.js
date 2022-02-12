@@ -155,9 +155,24 @@ addScore = e => {
     localStorage.setItem("highScores", JSON.stringify(highScores)); // sets string of array to local storage
 
 
-    console.log(highScores);
-    highScore.innerText = highScores[0].score; // entire array returns {object object}. .score shows score in high score field
-};
+    const { initials, score } = highScores[0];
+    scoreResult = (highScores[0].initials + ', ' + highScores[0].score) || [];
+
+    highScore.innerHTML = scoreResult;
+  };
+  
+  showScore = () => {
+    const highScores = JSON.parse(localStorage.getItem("highScores"));
+    if (highScores) {
+    // console.log(highScores);
+    scoreResult = (highScores[0].initials + ', ' + highScores[0].score) || [];
+    // console.log(scoreResult);
+  highScore.innerHTML = scoreResult;
+    } else {
+      highScore.innerHTML = 'No high score yet'
+    }
+  // console.log(initials, score);
+}
 
 
 
@@ -216,3 +231,4 @@ function quizStart() {
 // event listeners for the submit button and the restart quiz button at the end of the quiz 
 document.getElementById("submitScore").addEventListener("click", addScore);
 document.getElementById("restartQuiz").addEventListener("click", restartQuiz);
+showScore();
